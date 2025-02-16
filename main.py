@@ -12,4 +12,4 @@ for episode in range(1, episodes+1):
 
     while not done:
         action = random.choice([0, 1])
-        _, = environment.step(action)
+        _, reward, done, _ = environment.step(action)

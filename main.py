@@ -2,7 +2,7 @@
 import gym
 import random
 
-environment = gym.make("CartPole-v1", render_mode="human", new_step_api=True)
+environment = gym.make("CartPole-v1", render_mode="human")
 
 episodes = 10
 for episode in range(1, episodes+1):
@@ -12,10 +12,9 @@ for episode in range(1, episodes+1):
 
     while not done:
         action = random.choice([0, 1])
-        _, reward, done, _ = environment.step(action)
+        observation, reward, done, info = environment.step(action)
         score += reward
-        environment.render()
+        
 
     print(f"Episode {episode}, Score: {score}")
 
-environment.close()

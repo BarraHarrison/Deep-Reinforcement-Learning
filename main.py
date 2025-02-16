@@ -37,3 +37,16 @@ agent = dqn_agent.DqnAgent(
     train_step_counter=global_step
 )
 agent.initialize()
+
+
+replay_buffer = tf_uniform_replay_buffer.TFUniformReplayBuffer(
+    data_spec=agent.collect_data_spec,
+    batch_size=train_env.batch_size,
+    max_length=50000
+)
+dataset = replay_buffer.as_dataset(
+    num_parallel_calls=3,
+    sample_batch_size=64,
+    num_steps=2
+).prefetch(3)
+iterator = iter(dataset)

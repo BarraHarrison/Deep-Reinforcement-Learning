@@ -50,3 +50,21 @@ dataset = replay_buffer.as_dataset(
     num_steps=2
 ).prefetch(3)
 iterator = iter(dataset)
+
+
+
+collect_driver = dynamic_step_driver.DynamicStepDriver(
+    env=train_env,
+    policy=agent.collect_policy,
+    observers=[replay_buffer.add_batch],
+    num_steps=1
+)
+
+num_iterations = 50000
+agent.train = common.function(agent.train)
+for _ in range(num_iterations):
+    collect_driver.run()
+    experience, _ = next(iterator)
+    agent.train(experience)
+
+

@@ -1,4 +1,4 @@
-# Deep-Reinforcement-Learning using OpenAI Gym & Tensorflow
+# Deep-Reinforcement-Learning using TF-Agent
 import numpy as np
 import tensorflow as tf
 
@@ -18,4 +18,11 @@ train_py_env = suite_gym.load(env_name)
 eval_py_env = suite_gym.load(env_name)
 train_env = tf_py_environment.TFPyEnvironment(train_py_env)
 eval_env = tf_py_environment.TFPyEnvironment(eval_py_env)
+
+fc_layer_params = (24, 24)
+q_net = q_network.QNetwork(
+    input_tensor_spec=train_env.observation_spec(),
+    action_spec=train_env.action_spec(),
+    fc_layer_params=fc_layer_params
+)
 

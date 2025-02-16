@@ -10,7 +10,7 @@ from rl.agents import DQNAgent
 from rl.policy import BoltzmannQPolicy
 from rl.memory import SequentialMemory
 
-environment = gym.make("CartPole-v1", render_mode="human")
+environment = gym.make("CartPole-v1")
 states = environment.observation_space.shape[0]
 actions = environment.action_space.n
 
@@ -28,6 +28,9 @@ agent = DQNAgent(
     nb_steps_warmup=10,
     target_model_update=0.01
 )
+
+agent.compile(Adam(lr=0.001, metrics=["mae"]))
+agent.fit(environment, nb_steps=100000, visualize=False, verbose=1)
 
 episodes = 10
 for episode in range(1, episodes+1):

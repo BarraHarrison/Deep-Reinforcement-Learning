@@ -2,7 +2,7 @@
 import gym
 import random
 
-environment = gym.make("Cartpole-v1", render_mode="human")
+environment = gym.make("CartPole-v1", render_mode="human", new_step_api=True)
 
 episodes = 10
 for episode in range(1, episodes+1):

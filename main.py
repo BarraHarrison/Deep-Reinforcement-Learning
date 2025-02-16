@@ -20,6 +20,15 @@ model.add(Dense(24, activation="relu"))
 model.add(Dense(24, activation="relu"))
 model.add(Dense(actions, activation="linear"))
 
+agent = DQNAgent(
+    model=model,
+    memory=SequentialMemory(limit=50000, window_length=1),
+    policy=BoltzmannQPolicy(),
+    nb_actions=actions,
+    nb_steps_warmup=10,
+    target_model_update=0.01
+)
+
 episodes = 10
 for episode in range(1, episodes+1):
     state = environment.reset()

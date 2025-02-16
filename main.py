@@ -3,7 +3,8 @@ import gym
 import random
 import numpy as np
 
-from tensorflow.keras.models import Sequential
+import tensorflow as tf
+from tensorflow.keras.models import Sequential, Model
 from tensorflow.keras.layers import Dense, Flatten
 from tensorflow.keras.optimizers import Adam
 

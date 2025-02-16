@@ -67,4 +67,15 @@ for _ in range(num_iterations):
     experience, _ = next(iterator)
     agent.train(experience)
 
+num_eval_episodes = 10
+avg_return = 0.0
+for _ in range(num_eval_episodes):
+    time_step = eval_env.reset()
+    episode_return = 0.0
+    while not time_step.is_last():
+        action_step = agent.policy.action(time_step)
+        time_step = eval_env.step(action_step.action)
+        episode_return += time_step.reward
+    avg_return += episode_return / num_eval_episodes
 
+print(f"Average Return over {num_eval_episodes} episodes", avg_return.numpy()[0])

@@ -11,6 +11,14 @@ from rl.policy import BoltzmannQPolicy
 from rl.memory import SequentialMemory
 
 environment = gym.make("CartPole-v1", render_mode="human")
+states = environment.observation_space.shape[0]
+actions = environment.action_space.n
+
+model = Sequential()
+model.add(Flatten(input_shape=(1, states)))
+model.add(Dense(24, activation="relu"))
+model.add(Dense(24, activation="relu"))
+model.add(Dense(actions, activation="linear"))
 
 episodes = 10
 for episode in range(1, episodes+1):

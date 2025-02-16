@@ -1,6 +1,7 @@
 # Deep-Reinforcement-Learning using OpenAI Gym & Tensorflow
 import gym
 import random
+import numpy as np
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten
@@ -32,18 +33,21 @@ agent = DQNAgent(
 agent.compile(Adam(lr=0.001, metrics=["mae"]))
 agent.fit(environment, nb_steps=100000, visualize=False, verbose=1)
 
-episodes = 10
-for episode in range(1, episodes+1):
-    state = environment.reset()
-    done = False
-    score = 0
+results = agent.test(environment, nb_episodes=10, visualize=True)
+print(np.mean(results.history["episode_reward"]))
 
-    while not done:
-        action = random.choice([0, 1])
-        observation, reward, terminated, truncated, info = environment.step(action)
-        done = terminated or truncated
-        score += reward
+# episodes = 10
+# for episode in range(1, episodes+1):
+#     state = environment.reset()
+#     done = False
+#     score = 0
+
+#     while not done:
+#         action = random.choice([0, 1])
+#         observation, reward, terminated, truncated, info = environment.step(action)
+#         done = terminated or truncated
+#         score += reward
         
 
-    print(f"Episode {episode}, Score: {score}")
+#     print(f"Episode {episode}, Score: {score}")
 

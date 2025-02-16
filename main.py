@@ -12,7 +12,8 @@ for episode in range(1, episodes+1):
 
     while not done:
         action = random.choice([0, 1])
-        observation, reward, done, info = environment.step(action)
+        observation, reward, terminated, truncated, info = environment.step(action)
+        done = terminated or truncated
         score += reward
         
 

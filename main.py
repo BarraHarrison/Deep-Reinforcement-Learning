@@ -4,9 +4,6 @@ import random
 import numpy as np
 
 import tensorflow as tf
-from tensorflow.keras.models import Sequential, Model
-from tensorflow.keras.layers import Dense, Flatten
-from tensorflow.keras.optimizers import Adam
 
 from rl.agents import DQNAgent
 from rl.policy import BoltzmannQPolicy
@@ -16,11 +13,11 @@ environment = gym.make("CartPole-v1")
 states = environment.observation_space.shape[0]
 actions = environment.action_space.n
 
-model = Sequential()
-model.add(Flatten(input_shape=(1, states)))
-model.add(Dense(24, activation="relu"))
-model.add(Dense(24, activation="relu"))
-model.add(Dense(actions, activation="linear"))
+model = tf.keras.models.Sequential()
+model.add(tf.keras.layers.Flatten(input_shape=(1, states)))
+model.add(tf.keras.layers.Dense(24, activation="relu"))
+model.add(tf.keras.layers.Dense(24, activation="relu"))
+model.add(tf.keras.layers.Dense(actions, activation="linear"))
 
 agent = DQNAgent(
     model=model,
